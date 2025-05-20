@@ -18,7 +18,11 @@
     </parent>
 
     <artifactId>mvc-krazo-galleon-shared</artifactId>
+    <!-- Custom packaging type provided by Maven extension
+         org.wildfly.galleon.plugins:maven-assembly-zip-component -->
+    <!--<packaging>maven-assembly-zip</packaging>-->
     <packaging>pom</packaging>
+
     <name>WildFly Jakarta MVC with Krazo -- Shared Galleon Content</name>
   
     <description>Galleon content for a feature pack that provides Jakarta MVC with Krazo</description>
@@ -43,8 +47,14 @@
     </dependencies>
 	
     <build>
+        <!--<extensions>
+            <extension>
+                <groupId>org.wildfly.galleon.plugins</groupId>
+                <artifactId>maven-assembly-zip-component</artifactId>
+            </extension>
+        </extensions>-->
         <plugins>
-         <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -70,7 +80,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>assemble</id>
+                        <id>default-single</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
@@ -79,9 +89,10 @@
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
                             </descriptors>
+                            <attach>false</attach>
                             <recompressZippedFiles>true</recompressZippedFiles>
                             <finalName>${project.build.finalName}</finalName>
-                            <appendAssemblyId>true</appendAssemblyId>
+                            <appendAssemblyId>false</appendAssemblyId>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <workDirectory>${project.build.directory}/assembly/work</workDirectory>
                             <tarLongFileMode>${assembly.tarLongFileMode}</tarLongFileMode>
