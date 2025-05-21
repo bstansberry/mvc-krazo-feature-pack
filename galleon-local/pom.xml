@@ -19,36 +19,20 @@
 
     <artifactId>mvc-krazo-galleon-local</artifactId>
     <!-- Custom packaging type provided by Maven extension
-         org.wildfly.galleon.plugins:maven-assembly-zip-component -->
-    <!--<packaging>maven-assembly-zip</packaging>-->
-    <packaging>pom</packaging>
+         org.wildfly.plugins:wildfly-zip-plugin -->
+    <packaging>zip</packaging>
 
     <name>WildFly Jakarta MVC with Krazo -- Local Galleon Content</name>
   
     <description>Galleon content for a feature pack that provides Jakarta MVC with Krazo</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nxrm3-maven-plugin</artifactId>
-            <version>1.0.7</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>3.2.7</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
     <build>
-        <!--extensions>
-            <extension>
-                <groupId>org.wildfly.galleon.plugins</groupId>
-                <artifactId>maven-assembly-zip-component</artifactId>
-            </extension>
-        </extensions-->
         <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-zip-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -76,7 +60,7 @@
                 <executions>
                     <execution>
                         <id>default-single</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -84,6 +68,7 @@
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
                             </descriptors>
+                            <!-- Don't attach the artifact; let wildfly-zip-plugin do it -->
                             <attach>false</attach>
                             <recompressZippedFiles>true</recompressZippedFiles>
                             <finalName>${project.build.finalName}</finalName>

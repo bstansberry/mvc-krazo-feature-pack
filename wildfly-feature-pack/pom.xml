@@ -19,7 +19,6 @@
     <!-- Custom packaging type provided by Maven extension
          org.wildfly.galleon.plugins:wildfly-galleon-maven-plugin -->
     <packaging>galleon-feature-pack</packaging>
-    <!--<packaging>pom</packaging>-->
 
     <name>WildFly Jakarta MVC with Krazo -- Feature Pack</name>
     <description>Feature pack to provision Jakarta MVC with Krazo support for WildFly</description>
@@ -77,12 +76,6 @@
     </dependencies>
 
     <build>
-        <!--<extensions>
-            <extension>
-                <groupId>org.wildfly.galleon.plugins</groupId>
-                <artifactId>wildfly-galleon-zip-component</artifactId>
-            </extension>
-        </extensions>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

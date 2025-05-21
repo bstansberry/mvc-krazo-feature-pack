@@ -19,9 +19,8 @@
 
     <artifactId>mvc-krazo-galleon-shared</artifactId>
     <!-- Custom packaging type provided by Maven extension
-         org.wildfly.galleon.plugins:maven-assembly-zip-component -->
-    <!--<packaging>maven-assembly-zip</packaging>-->
-    <packaging>pom</packaging>
+         org.wildfly.plugins:wildfly-zip-plugin -->
+    <packaging>zip</packaging>
 
     <name>WildFly Jakarta MVC with Krazo -- Shared Galleon Content</name>
   
@@ -47,13 +46,12 @@
     </dependencies>
 	
     <build>
-        <!--<extensions>
-            <extension>
-                <groupId>org.wildfly.galleon.plugins</groupId>
-                <artifactId>maven-assembly-zip-component</artifactId>
-            </extension>
-        </extensions>-->
         <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-zip-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -81,7 +79,7 @@
                 <executions>
                     <execution>
                         <id>default-single</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -89,6 +87,7 @@
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
                             </descriptors>
+                            <!-- Don't attach the artifact; let wildfly-zip-plugin do it -->
                             <attach>false</attach>
                             <recompressZippedFiles>true</recompressZippedFiles>
                             <finalName>${project.build.finalName}</finalName>
